@@ -1,1 +1,0 @@
-// Placeholder content for pages/index.js
