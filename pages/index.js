@@ -25,9 +25,8 @@ export default function Home() {
         />
       </Head>
 
-      {/* Google Maps Autocomplete */}
       <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyCm96dFKB74A2Sg0dtpKTyJIZ9BXEkLZug&libraries=places`}
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
         strategy="beforeInteractive"
       />
 
@@ -52,7 +51,7 @@ export default function Home() {
             📞 (800) 555-1234
           </a>
 
-          <h1 className="text-2xl font-bold mb-2 drop-shadow-sm leading-tight">
+          <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
           <p className="text-white/90 text-sm mb-4">
