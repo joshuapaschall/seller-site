@@ -1,75 +1,88 @@
 import Image from 'next/image';
 import Head from 'next/head';
+import Script from 'next/script';
+import { useEffect, useRef } from 'react';
 
 export default function Home() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.google) {
+      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+      });
+    }
+  }, []);
+
   return (
     <div>
       <Head>
-        <title>Get a Cash Offer | Blitz Cash Offer</title>
+        <title>Get a Cash Offer | Every State House Buyers</title>
         <meta
           name="description"
-          content="We buy homes in any condition. Get your offer today!"
+          content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
+        />
+        <Script
+          src={`https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places`}
+          strategy="beforeInteractive"
         />
       </Head>
 
-      <header className="bg-red-600 text-white py-2 text-center text-sm font-semibold">
-        COVID-19 UPDATE: WE ARE NOW PURCHASING HOMES IN ANY CONDITION 100% VIRTUALLY. NO HOME VISITS NECESSARY!
-      </header>
+      {/* Mobile Hero Section */}
+      <div className="relative min-h-screen md:hidden">
+        <Image
+          src="/images/mobile-bg.webp"
+          alt="Aerial neighborhood view"
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30 z-0" />
 
-      <div className="relative min-h-screen">
-        {/* Desktop image: keep priority */}
-        <div className="hidden md:block absolute inset-0 z-0">
-          <Image
-            src="/images/hero-couple.webp"
-            alt="Happy couple hugging at home"
-            fill
-            priority
-            className="object-cover object-right"
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Mobile image: now with priority */}
-        <div className="block md:hidden absolute inset-0 z-0">
-          <Image
-            src="/images/mobile-bg.webp"
-            alt="Aerial neighborhood view"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Content over background */}
-        <main className="absolute inset-0 flex flex-col items-center justify-center px-4 py-12 z-10 text-white text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow">
-            Get a Cash Offer for Your Home
-          </h1>
-          <p className="text-white/90 mb-6 max-w-md drop-shadow">
-            You’ll receive a call back ASAP from a home buying specialist.
-          </p>
-          <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
-            <p className="text-center font-medium text-lg mb-2">
-              Thank you for submitting your info.
-            </p>
-            <p className="text-center text-sm text-gray-500">
-              Sit tight—we're reviewing your property and will reach out shortly.
-            </p>
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-8 px-4 text-white text-center">
+          <div className="mb-4">
+            <Image src="/logo.png" alt="Every State House Buyers" width={160} height={40} />
           </div>
-        </main>
-      </div>
 
-      <footer className="text-xs text-center text-gray-500 mt-10 p-4">
-        © 2025 Blitz Cash Offer | Get a Fair Cash Offer in 7 Minutes!<br />
-        <a href="/privacy" className="underline">
-          Privacy Policy
-        </a>{' '}
-        |{' '}
-        <a href="/terms" className="underline">
-          Terms and Conditions
-        </a>
-      </footer>
+          <a href="tel:1-800-555-1234" className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6">
+            📞 (800) 555-1234
+          </a>
+
+          <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
+            Get a cash offer for your home<br />with the click of a button
+          </h1>
+          <p className="text-white/90 text-sm mb-4">
+            Enter your address to get your instant offer.
+          </p>
+
+          <form className="w-full max-w-sm sticky top-4">
+            <input
+              type="text"
+              ref={inputRef}
+              placeholder="Enter your home address"
+              className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200"
+            />
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white font-semibold py-3 rounded-b-md text-sm"
+            >
+              Get Offer
+            </button>
+          </form>
+
+          <div className="mt-6 flex flex-col items-center text-xs text-white/80">
+            <Image
+              src="/reviews-badge.png"
+              alt="Rated 4.9 out of 5 stars"
+              width={120}
+              height={20}
+            />
+            <p>Rated 4.9 out of 5 by 387+ sellers</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
