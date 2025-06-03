@@ -18,21 +18,20 @@ export default function Home() {
 
       <div className="relative min-h-screen">
         <Image
-          src="/images/hero-couple.webp"
+          src="/images/hero-couple.webp" // Your compressed WebP version
           alt="Happy couple hugging at home"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="right center"
+          fill
           priority
           sizes="100vw"
+          className="object-cover object-[60%]" // Shift focus a bit left on mobile
         />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/30" />
 
-        <main className="absolute inset-0 flex flex-col items-center justify-center px-4 py-16 md:px-6 lg:px-8 z-10 text-white text-center">
+        <main className="absolute inset-0 flex flex-col items-center justify-center px-4 py-16 z-10 text-white text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow">
             Get a Cash Offer for Your Home
           </h1>
-          <p className="mb-6 max-w-md drop-shadow text-white/90">
+          <p className="text-white/90 mb-6 max-w-md drop-shadow">
             You’ll receive a call back ASAP from a home buying specialist.
           </p>
           <div className="bg-white p-6 rounded shadow-md w-full max-w-md text-black">
