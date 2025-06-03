@@ -23,11 +23,12 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        <Script
-          src={`https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places`}
-          strategy="beforeInteractive"
-        />
       </Head>
+
+      <Script
+        src={`https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places`}
+        strategy="afterInteractive"
+      />
 
       {/* Mobile Hero Section */}
       <div className="relative min-h-screen md:hidden">
@@ -38,15 +39,26 @@ export default function Home() {
           className="object-cover object-center"
           sizes="100vw"
           priority
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-8 px-4 text-white text-center">
           <div className="mb-4">
-            <Image src="/logo.png" alt="Every State House Buyers" width={160} height={40} />
+            <Image
+              src="/logo.png"
+              alt="Every State House Buyers"
+              width={160}
+              height={40}
+              loading="lazy"
+            />
           </div>
 
-          <a href="tel:1-800-555-1234" className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6">
+          <a
+            href="tel:1-800-555-1234"
+            className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6"
+          >
             📞 (800) 555-1234
           </a>
 
@@ -78,6 +90,7 @@ export default function Home() {
               alt="Rated 4.9 out of 5 stars"
               width={120}
               height={20}
+              loading="lazy"
             />
             <p>Rated 4.9 out of 5 by 387+ sellers</p>
           </div>
