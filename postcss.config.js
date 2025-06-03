@@ -4,4 +4,3 @@ module.exports = {
     autoprefixer: {},
   },
 }
-// Placeholder content for postcss.config.js
