@@ -17,7 +17,7 @@ export default function Home() {
       </header>
 
       <div className="relative min-h-screen">
-        {/* Desktop background image */}
+        {/* Desktop image: keep priority */}
         <div className="hidden md:block absolute inset-0 z-0">
           <Image
             src="/images/hero-couple.webp"
@@ -29,20 +29,18 @@ export default function Home() {
           />
         </div>
 
-        {/* Mobile background image */}
+        {/* Mobile image: remove priority */}
         <div className="block md:hidden absolute inset-0 z-0">
           <Image
             src="/images/mobile-bg.webp"
             alt="Aerial neighborhood view"
             fill
-            priority
             className="object-cover object-center"
             sizes="100vw"
           />
         </div>
 
-        {/* Dark overlay for readability */}
-        <div className="absolute inset-0 bg-black/30 z-0" />
+        <div className="absolute inset-0 bg-black/20" />
 
         <main className="absolute inset-0 flex flex-col items-center justify-center px-4 py-12 z-10 text-white text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow">
@@ -64,7 +62,13 @@ export default function Home() {
 
       <footer className="text-xs text-center text-gray-500 mt-10 p-4">
         © 2025 Blitz Cash Offer | Get a Fair Cash Offer in 7 Minutes!<br />
-        <a href="/privacy" className="underline">Privacy Policy</a> | <a href="/terms" className="underline">Terms and Conditions</a>
+        <a href="/privacy" className="underline">
+          Privacy Policy
+        </a>{' '}
+        |{' '}
+        <a href="/terms" className="underline">
+          Terms and Conditions
+        </a>
       </footer>
     </div>
   );
