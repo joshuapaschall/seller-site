@@ -29,19 +29,19 @@ export default function Home() {
           />
         </div>
 
-        {/* Mobile image: remove priority */}
+        {/* Mobile image: now with priority */}
         <div className="block md:hidden absolute inset-0 z-0">
           <Image
             src="/images/mobile-bg.webp"
             alt="Aerial neighborhood view"
             fill
+            priority
             className="object-cover object-center"
             sizes="100vw"
           />
         </div>
 
-        <div className="absolute inset-0 bg-black/20" />
-
+        {/* Content over background */}
         <main className="absolute inset-0 flex flex-col items-center justify-center px-4 py-12 z-10 text-white text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow">
             Get a Cash Offer for Your Home
