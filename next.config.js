@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    legacyBrowsers: false,
-  },
+  // Remove the experimental.legacyBrowsers option
 }
 
 module.exports = nextConfig;
