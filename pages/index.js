@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
@@ -59,7 +59,7 @@ export default function Home() {
           alt="Every State House Buyers logo"
           width={180}
           height={48}
-          priority={false}
+          priority // Ensures no layout shift and loads ASAP
         />
         <a
           href="tel:1-800-555-1234"
@@ -76,16 +76,15 @@ export default function Home() {
           src="/images/mobile-bg.webp"
           alt="Aerial neighborhood view"
           fill
-          className="object-cover object-center"
           sizes="100vw"
           priority
           placeholder="blur"
           blurDataURL="/images/mobile-bg-blur.webp"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center">
-          {/* Headline & Subtext */}
           <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
@@ -93,7 +92,6 @@ export default function Home() {
             Enter your address to get your instant offer.
           </p>
 
-          {/* Address Form */}
           <form className="w-full max-w-sm sticky top-4" autoComplete="off">
             <input
               type="text"
