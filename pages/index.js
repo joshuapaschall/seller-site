@@ -7,7 +7,6 @@ export default function Home() {
   const [mapsLoaded, setMapsLoaded] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  // Dynamically load Google Maps only after typing begins
   useEffect(() => {
     if (
       !mapsLoaded &&
@@ -26,7 +25,6 @@ export default function Home() {
     }
   }, [inputValue, mapsLoaded]);
 
-  // Initialize Google Autocomplete
   useEffect(() => {
     if (mapsLoaded && window.google && inputRef.current) {
       new window.google.maps.places.Autocomplete(inputRef.current, {
@@ -39,7 +37,7 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Submitted address:', inputValue);
-    // Add logic like router.push('/address/verify') if needed
+    // You can use: router.push('/address/verify')
   };
 
   return (
@@ -50,7 +48,6 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        {/* Preload AVIF hero image */}
         <link
           rel="preload"
           as="image"
@@ -59,7 +56,6 @@ export default function Home() {
           imagesizes="100vw"
           type="image/avif"
         />
-        {/* Preload logo */}
         <link
           rel="preload"
           as="image"
@@ -78,6 +74,7 @@ export default function Home() {
           width={180}
           height={48}
           priority
+          style={{ width: '180px', height: '48px' }}
         />
         <a
           href="tel:1-800-555-1234"
@@ -99,7 +96,12 @@ export default function Home() {
           placeholder="blur"
           blurDataURL="/images/mobile-bg-blur.webp"
           fetchPriority="high"
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+            width: '100%',
+            height: '100%',
+          }}
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
@@ -141,6 +143,7 @@ export default function Home() {
               width={140}
               height={30}
               loading="lazy"
+              style={{ width: '140px', height: '30px' }}
             />
             <p>Rated 4.9 out of 5 by 387+ sellers</p>
           </div>
