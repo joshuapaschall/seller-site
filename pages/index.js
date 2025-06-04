@@ -56,102 +56,104 @@ export default function Home() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
         />
-        <link
-          rel="preload"
-          as="image"
-          href="/images/mobile-bg.avif"
-          imagesrcset="/images/mobile-bg.avif"
-          imagesizes="100vw"
-          type="image/avif"
-        />
-        <link
-          rel="preload"
-          as="image"
-          href="/images/logo.webp"
-          imagesrcset="/images/logo.webp"
-          imagesizes="160px"
-          type="image/webp"
-        />
       </Head>
 
-      <header className="w-full bg-white flex flex-col items-center py-4 shadow-sm">
-        <Image
-          src="/images/logo.webp"
-          alt="Every State House Buyers logo"
-          width={160}
-          height={160}
-          priority
-          className="w-[120px] h-auto"
-        />
+      {/* 🔴 Red Top Banner */}
+      <div className="bg-red-700 text-white text-xs sm:text-sm font-semibold text-center px-4 py-2">
+        NO FEES. NO REPAIRS. NO AGENTS. JUST A FAST CASH OFFER.
+      </div>
+
+      {/* 🏠 Logo + Phone (Desktop: Left/Right | Mobile: Centered) */}
+      <div className="flex justify-between items-center px-4 py-3 bg-white shadow-sm">
+        <div className="w-full flex justify-center md:justify-start">
+          <Image
+            src="/images/logo.webp"
+            alt="Every State House Buyers logo"
+            width={160}
+            height={160}
+            className="w-[120px] h-auto"
+            priority
+          />
+        </div>
+        <div className="hidden md:block">
+          <a
+            href="tel:1-800-555-1234"
+            className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded"
+          >
+            (800) 555-1234
+          </a>
+        </div>
+      </div>
+
+      {/* Mobile call button */}
+      <div className="md:hidden text-center mt-2">
         <a
           href="tel:1-800-555-1234"
-          className="mt-2 text-base font-medium text-blue-700"
+          className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded"
         >
           (800) 555-1234
         </a>
-      </header>
+      </div>
 
-      <div className="relative min-h-screen md:hidden overflow-x-hidden">
+      {/* 🖼️ Hero Section */}
+      <div className="relative min-h-screen md:min-h-[90vh]">
         <Image
           src="/images/mobile-bg.avif"
-          alt="Aerial neighborhood view"
+          alt="Neighborhood aerial"
           fill
           sizes="100vw"
           priority
           placeholder="blur"
           blurDataURL="/images/mobile-bg-blur.webp"
-          fetchPriority="high"
-          style={{
-            objectFit: 'cover',
-            objectPosition: 'center',
-            width: '100%',
-            height: '100%',
-          }}
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center min-h-[60vh]">
-          <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-white text-center">
+          <h1 className="text-2xl font-bold mb-3 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
-          <p className="text-white/90 text-sm mb-4">
-            Enter your address to get your instant offer.
+
+          {/* 📝 Horizontal Form */}
+          <form
+            className="flex w-full max-w-md mx-auto bg-white rounded-md overflow-hidden shadow-md"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              ref={inputRef}
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
+              placeholder="Enter your home address"
+              className="flex-grow px-4 py-3 text-black text-sm outline-none"
+              aria-label="Enter your home address"
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-3 text-sm font-semibold"
+            >
+              Get Offer
+            </button>
+          </form>
+
+          {/* 💬 Subheadline */}
+          <p className="text-white/90 text-xs mt-3">
+            Our team will review your address and send you a no-obligation cash offer.
           </p>
 
-          <div className="w-full max-w-sm mx-auto px-4 relative z-20">
-            <form
-              className="w-full sticky top-4 min-h-[120px]"
-              autoComplete="off"
-              onSubmit={handleSubmit}
-            >
-              <input
-                type="text"
-                ref={inputRef}
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                placeholder="Enter your home address"
-                className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200 outline-none"
-                aria-label="Enter your home address"
+          {/* ⭐ Reviews Section */}
+          <div className="mt-5 bg-white px-4 py-3 rounded-md shadow-md text-black text-sm">
+            <div className="flex items-center justify-center space-x-2">
+              <Image
+                src="/images/stars.webp"
+                alt="5-star rating"
+                width={100}
+                height={20}
+                className="h-auto"
               />
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-3 rounded-b-md text-sm"
-              >
-                Get Offer
-              </button>
-            </form>
-          </div>
-
-          <div className="mt-6 flex flex-col items-center text-xs text-white/80">
-            <Image
-              src="/images/reviews-badge.webp"
-              alt="Rated 4.9 out of 5 stars by 387+ sellers"
-              width={120}
-              height={65}
-              loading="lazy"
-              className="w-[120px] h-auto"
-            />
-            <p>Rated 4.9 out of 5 by 387+ sellers</p>
+              <span>4.9 out of 5 rating from 387+ sellers</span>
+            </div>
           </div>
         </div>
       </div>
