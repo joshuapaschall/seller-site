@@ -7,7 +7,7 @@ export default function Home() {
   const [mapsLoaded, setMapsLoaded] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  // Load Google Maps script only after 2+ characters are typed
+  // Dynamically load Google Maps only after typing begins
   useEffect(() => {
     if (
       !mapsLoaded &&
@@ -18,7 +18,7 @@ export default function Home() {
       if (!window.google) {
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
-        script.defer = true; // Use defer for better performance
+        script.defer = true;
         script.async = false;
         script.onload = () => setMapsLoaded(true);
         document.body.appendChild(script);
@@ -26,6 +26,7 @@ export default function Home() {
     }
   }, [inputValue, mapsLoaded]);
 
+  // Initialize Google Autocomplete
   useEffect(() => {
     if (mapsLoaded && window.google && inputRef.current) {
       new window.google.maps.places.Autocomplete(inputRef.current, {
@@ -35,12 +36,10 @@ export default function Home() {
     }
   }, [mapsLoaded]);
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your form submission logic here
-    // For now, just log the input value
     console.log('Submitted address:', inputValue);
+    // Add logic like router.push('/address/verify') if needed
   };
 
   return (
@@ -51,21 +50,23 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        {/* Preload hero image for LCP */}
+        {/* Preload AVIF hero image */}
         <link
           rel="preload"
           as="image"
-          href="/images/mobile-bg.webp"
-          imagesrcset="/images/mobile-bg.webp"
+          href="/images/mobile-bg.avif"
+          imagesrcset="/images/mobile-bg.avif"
           imagesizes="100vw"
+          type="image/avif"
         />
-        {/* Preload logo for CLS */}
+        {/* Preload logo */}
         <link
           rel="preload"
           as="image"
           href="/images/logo.webp"
           imagesrcset="/images/logo.webp"
           imagesizes="180px"
+          type="image/webp"
         />
       </Head>
 
@@ -76,7 +77,7 @@ export default function Home() {
           alt="Every State House Buyers logo"
           width={180}
           height={48}
-          priority // Ensures no layout shift and loads ASAP
+          priority
         />
         <a
           href="tel:1-800-555-1234"
@@ -90,13 +91,14 @@ export default function Home() {
       {/* Mobile Hero Section */}
       <div className="relative min-h-screen md:hidden">
         <Image
-          src="/images/mobile-bg.webp"
+          src="/images/mobile-bg.avif"
           alt="Aerial neighborhood view"
           fill
           sizes="100vw"
           priority
           placeholder="blur"
           blurDataURL="/images/mobile-bg-blur.webp"
+          fetchPriority="high"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
