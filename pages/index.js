@@ -18,7 +18,8 @@ export default function Home() {
       if (!window.google) {
         const script = document.createElement('script');
         script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
-        script.async = true;
+        script.defer = true; // Use defer for better performance
+        script.async = false;
         script.onload = () => setMapsLoaded(true);
         document.body.appendChild(script);
       }
@@ -49,6 +50,14 @@ export default function Home() {
           href="/images/mobile-bg.webp"
           imagesrcset="/images/mobile-bg.webp"
           imagesizes="100vw"
+        />
+        {/* Preload logo for CLS */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/logo.webp"
+          imagesrcset="/images/logo.webp"
+          imagesizes="180px"
         />
       </Head>
 
