@@ -2,30 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Custom Global Styles === */
-
-/* Prevent horizontal scroll on mobile */
+html,
 body {
   overflow-x: hidden;
-  font-family: 'Inter', sans-serif;
+  touch-action: pan-y;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
 
-/* Google Maps Autocomplete Dropdown Styles */
-.pac-container {
-  background-color: white !important;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-  z-index: 9999 !important;
-  font-family: 'Inter', sans-serif;
-}
-
-.pac-item {
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  color: #1f2937; /* Tailwind gray-800 */
-  cursor: pointer;
-}
-
-.pac-item:hover {
-  background-color: #f3f4f6; /* Tailwind gray-100 */
+input:focus {
+  scroll-margin-top: 100px;
 }
