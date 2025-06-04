@@ -35,6 +35,14 @@ export default function Home() {
     }
   }, [mapsLoaded]);
 
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add your form submission logic here
+    // For now, just log the input value
+    console.log('Submitted address:', inputValue);
+  };
+
   return (
     <div>
       <Head>
@@ -101,7 +109,11 @@ export default function Home() {
             Enter your address to get your instant offer.
           </p>
 
-          <form className="w-full max-w-sm sticky top-4" autoComplete="off">
+          <form
+            className="w-full max-w-sm sticky top-4"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               ref={inputRef}
