@@ -29,7 +29,7 @@ export default function Home() {
 
       <Script
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-        strategy="beforeInteractive"
+        strategy="lazyOnload"
       />
 
       {/* Mobile Hero Section */}
@@ -51,11 +51,15 @@ export default function Home() {
               alt="Every State House Buyers"
               width={160}
               height={40}
+              loading="eager"
               priority
             />
           </div>
 
-          <a href="tel:1-800-555-1234" className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6">
+          <a
+            href="tel:1-800-555-1234"
+            className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6"
+          >
             📞 (800) 555-1234
           </a>
 
@@ -84,12 +88,12 @@ export default function Home() {
           <div className="mt-6 flex flex-col items-center text-xs text-white/80">
             <Image
               src="/images/reviews-badge.webp"
-              alt="Rated 4.9 out of 5 stars by 387+ sellers"
+              alt="Rated 4.9 out of 5 stars"
               width={120}
               height={20}
-              priority
+              loading="lazy"
             />
-            <p className="mt-1">Rated 4.9 out of 5 by 387+ sellers</p>
+            <p>Rated 4.9 out of 5 by 387+ sellers</p>
           </div>
         </div>
       </div>
