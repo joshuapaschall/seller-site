@@ -1,21 +1,38 @@
-// pages/index.js
-
 import Image from 'next/image';
 import Head from 'next/head';
-import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
   const inputRef = useRef(null);
+  const [mapsLoaded, setMapsLoaded] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  // Load Google Maps script only after 2+ characters are typed
+  useEffect(() => {
+    if (
+      !mapsLoaded &&
+      typeof window !== 'undefined' &&
+      inputRef.current &&
+      inputValue.length >= 2
+    ) {
+      if (!window.google) {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
+        script.async = true;
+        script.onload = () => setMapsLoaded(true);
+        document.body.appendChild(script);
+      }
+    }
+  }, [inputValue, mapsLoaded]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.google) {
-      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+    if (mapsLoaded && window.google && inputRef.current) {
+      new window.google.maps.places.Autocomplete(inputRef.current, {
         types: ['address'],
         componentRestrictions: { country: 'us' },
       });
     }
-  }, []);
+  }, [mapsLoaded]);
 
   return (
     <div>
@@ -25,12 +42,33 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
+        {/* Preload hero image for LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/mobile-bg.webp"
+          imagesrcset="/images/mobile-bg.webp"
+          imagesizes="100vw"
+        />
       </Head>
 
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-        strategy="lazyOnload"
-      />
+      {/* Logo Header */}
+      <header className="w-full bg-white flex flex-col items-center py-4 shadow-sm">
+        <Image
+          src="/images/logo.webp"
+          alt="Every State House Buyers logo"
+          width={180}
+          height={48}
+          priority={false}
+        />
+        <a
+          href="tel:1-800-555-1234"
+          className="mt-2 text-base font-medium text-blue-700"
+          aria-label="Call Every State House Buyers"
+        >
+          (800) 555-1234
+        </a>
+      </header>
 
       {/* Mobile Hero Section */}
       <div className="relative min-h-screen md:hidden">
@@ -41,28 +79,13 @@ export default function Home() {
           className="object-cover object-center"
           sizes="100vw"
           priority
+          placeholder="blur"
+          blurDataURL="/images/mobile-bg-blur.webp"
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-8 px-4 text-white text-center">
-          <div className="mb-4">
-            <Image
-              src="/images/logo.webp"
-              alt="Every State House Buyers"
-              width={160}
-              height={40}
-              loading="eager"
-              priority
-            />
-          </div>
-
-          <a
-            href="tel:1-800-555-1234"
-            className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6"
-          >
-            📞 (800) 555-1234
-          </a>
-
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center">
+          {/* Headline & Subtext */}
           <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
@@ -70,12 +93,16 @@ export default function Home() {
             Enter your address to get your instant offer.
           </p>
 
-          <form className="w-full max-w-sm sticky top-4">
+          {/* Address Form */}
+          <form className="w-full max-w-sm sticky top-4" autoComplete="off">
             <input
               type="text"
               ref={inputRef}
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
               placeholder="Enter your home address"
               className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200"
+              aria-label="Enter your home address"
             />
             <button
               type="submit"
@@ -85,12 +112,13 @@ export default function Home() {
             </button>
           </form>
 
+          {/* Reviews Badge */}
           <div className="mt-6 flex flex-col items-center text-xs text-white/80">
             <Image
               src="/images/reviews-badge.webp"
-              alt="Rated 4.9 out of 5 stars"
-              width={120}
-              height={20}
+              alt="Rated 4.9 out of 5 stars by 387+ sellers"
+              width={140}
+              height={30}
               loading="lazy"
             />
             <p>Rated 4.9 out of 5 by 387+ sellers</p>
