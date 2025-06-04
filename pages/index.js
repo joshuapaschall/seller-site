@@ -47,55 +47,32 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-        />
       </Head>
 
-      {/* 🔴 Red Top Banner */}
+      {/* 🔴 Top Red Banner */}
       <div className="bg-red-700 text-white text-xs sm:text-sm font-semibold text-center px-4 py-2">
         NO FEES. NO REPAIRS. NO AGENTS. JUST A FAST CASH OFFER.
       </div>
 
-      {/* 🏠 Logo + Phone (Desktop: Left/Right | Mobile: Centered) */}
-      <div className="flex justify-between items-center px-4 py-3 bg-white shadow-sm">
-        <div className="w-full flex justify-center md:justify-start">
-          <Image
-            src="/images/logo.webp"
-            alt="Every State House Buyers logo"
-            width={160}
-            height={160}
-            className="w-[120px] h-auto"
-            priority
-          />
-        </div>
-        <div className="hidden md:block">
-          <a
-            href="tel:1-800-555-1234"
-            className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded"
-          >
-            (800) 555-1234
-          </a>
-        </div>
-      </div>
-
-      {/* Mobile call button */}
-      <div className="md:hidden text-center mt-2">
+      {/* 🏠 Logo + Call */}
+      <div className="bg-white flex flex-col items-center justify-center pt-2 pb-3 shadow-sm">
+        <Image
+          src="/images/logo.webp"
+          alt="Every State House Buyers logo"
+          width={180}
+          height={64}
+          className="w-[140px] h-auto"
+          priority
+        />
         <a
           href="tel:1-800-555-1234"
-          className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded"
+          className="mt-2 bg-blue-600 text-white text-sm font-semibold px-5 py-2 rounded"
         >
           (800) 555-1234
         </a>
       </div>
 
-      {/* 🖼️ Hero Section */}
+      {/* 🖼️ Hero Background */}
       <div className="relative min-h-screen md:min-h-[90vh]">
         <Image
           src="/images/mobile-bg.avif"
@@ -109,14 +86,15 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
+        {/* 🧍 Hero Content */}
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-white text-center">
-          <h1 className="text-2xl font-bold mb-3 drop-shadow-sm">
+          <h1 className="text-2xl font-bold mb-3 drop-shadow-sm leading-tight">
             Get a cash offer for your home<br />with the click of a button
           </h1>
 
           {/* 📝 Horizontal Form */}
           <form
-            className="flex w-full max-w-md mx-auto bg-white rounded-md overflow-hidden shadow-md"
+            className="flex w-full max-w-md bg-white rounded-md overflow-hidden shadow-md"
             autoComplete="off"
             onSubmit={handleSubmit}
           >
@@ -138,23 +116,25 @@ export default function Home() {
           </form>
 
           {/* 💬 Subheadline */}
-          <p className="text-white/90 text-xs mt-3">
+          <p className="text-white/90 text-xs mt-3 max-w-xs">
             Our team will review your address and send you a no-obligation cash offer.
           </p>
+        </div>
+      </div>
 
-          {/* ⭐ Reviews Section */}
-          <div className="mt-5 bg-white px-4 py-3 rounded-md shadow-md text-black text-sm">
-            <div className="flex items-center justify-center space-x-2">
-              <Image
-                src="/images/stars.webp"
-                alt="5-star rating"
-                width={100}
-                height={20}
-                className="h-auto"
-              />
-              <span>4.9 out of 5 rating from 387+ sellers</span>
-            </div>
-          </div>
+      {/* ⭐ Reviews Section */}
+      <div className="bg-white text-center py-4 shadow-inner px-4">
+        <div className="flex flex-col items-center space-y-2">
+          <Image
+            src="/images/reviews-badge.webp"
+            alt="Reviews.io badge"
+            width={200}
+            height={40}
+            className="h-auto"
+          />
+          <p className="text-sm text-gray-800">
+            4.9 out of 5 rating from 387+ sellers
+          </p>
         </div>
       </div>
     </div>
