@@ -48,7 +48,6 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        {/* Optional: preload fonts */}
         <link
           rel="preload"
           as="style"
@@ -58,8 +57,6 @@ export default function Home() {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
         />
-
-        {/* Preload hero background image */}
         <link
           rel="preload"
           as="image"
@@ -68,13 +65,12 @@ export default function Home() {
           imagesizes="100vw"
           type="image/avif"
         />
-        {/* Preload logo */}
         <link
           rel="preload"
           as="image"
           href="/images/logo.webp"
           imagesrcset="/images/logo.webp"
-          imagesizes="180px"
+          imagesizes="160px"
           type="image/webp"
         />
       </Head>
@@ -84,10 +80,10 @@ export default function Home() {
         <Image
           src="/images/logo.webp"
           alt="Every State House Buyers logo"
-          width={180}
-          height={48}
+          width={160}
+          height={160}
           priority
-          style={{ width: '180px', height: '48px' }}
+          className="w-[120px] h-auto"
         />
         <a
           href="tel:1-800-555-1234"
@@ -153,10 +149,10 @@ export default function Home() {
             <Image
               src="/images/reviews-badge.webp"
               alt="Rated 4.9 out of 5 stars by 387+ sellers"
-              width={140}
-              height={30}
+              width={120}
+              height={65}
               loading="lazy"
-              style={{ width: '140px', height: '30px' }}
+              className="w-[120px] h-auto"
             />
             <p>Rated 4.9 out of 5 by 387+ sellers</p>
           </div>
