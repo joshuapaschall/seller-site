@@ -2,14 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal scroll and weird shifts on mobile */
 html,
 body {
   overflow-x: hidden;
   touch-action: pan-y;
   overscroll-behavior: none;
   scroll-behavior: smooth;
+  background-color: #ffffff;
 }
 
+/* Google Places Autocomplete dropdown styling */
+.pac-container {
+  background-color: #ffffff !important;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 9999 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+.pac-item {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #111827;
+  cursor: pointer;
+}
+
+.pac-item:hover {
+  background-color: #f3f4f6;
+}
+
+/* Help avoid jumpy scroll when focusing inputs */
 input:focus {
   scroll-margin-top: 100px;
 }
