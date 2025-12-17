@@ -1,3 +1,5 @@
+// pages/index.js
+
 import Image from 'next/image';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -44,7 +46,13 @@ export default function Home() {
 
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-8 px-4 text-white text-center">
           <div className="mb-4">
-            <Image src="/logo.png" alt="Every State House Buyers" width={160} height={40} />
+            <Image
+              src="/images/logo.webp"
+              alt="Every State House Buyers"
+              width={160}
+              height={40}
+              priority
+            />
           </div>
 
           <a href="tel:1-800-555-1234" className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6">
@@ -75,12 +83,13 @@ export default function Home() {
 
           <div className="mt-6 flex flex-col items-center text-xs text-white/80">
             <Image
-              src="/reviews-badge.png"
-              alt="Rated 4.9 out of 5 stars"
+              src="/images/reviews-badge.webp"
+              alt="Rated 4.9 out of 5 stars by 387+ sellers"
               width={120}
               height={20}
+              priority
             />
-            <p>Rated 4.9 out of 5 by 387+ sellers</p>
+            <p className="mt-1">Rated 4.9 out of 5 by 387+ sellers</p>
           </div>
         </div>
       </div>
