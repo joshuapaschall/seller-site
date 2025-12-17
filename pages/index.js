@@ -1,21 +1,46 @@
-// pages/index.js
-
-import Image from 'next/image';
 import Head from 'next/head';
-import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
   const inputRef = useRef(null);
+  const [mapsLoaded, setMapsLoaded] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
+  // Dynamically load Google Maps only after typing begins
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.google) {
-      const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+    if (
+      !mapsLoaded &&
+      typeof window !== 'undefined' &&
+      inputRef.current &&
+      inputValue.length >= 2
+    ) {
+      if (!window.google) {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`;
+        script.defer = true;
+        script.async = false;
+        script.onload = () => setMapsLoaded(true);
+        document.body.appendChild(script);
+      }
+    }
+  }, [inputValue, mapsLoaded]);
+
+  // Initialize Google Autocomplete
+  useEffect(() => {
+    if (mapsLoaded && window.google && inputRef.current) {
+      new window.google.maps.places.Autocomplete(inputRef.current, {
         types: ['address'],
         componentRestrictions: { country: 'us' },
       });
     }
-  }, []);
+  }, [mapsLoaded]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Submitted address:', inputValue);
+    // Add logic like router.push('/address/verify') if needed
+  };
 
   return (
     <div>
@@ -25,46 +50,60 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
+        {/* Preload AVIF hero image */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/mobile-bg.avif"
+          imagesrcset="/images/mobile-bg.avif"
+          imagesizes="100vw"
+          type="image/avif"
+        />
+        {/* Preload logo */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/logo.webp"
+          imagesrcset="/images/logo.webp"
+          imagesizes="180px"
+          type="image/webp"
+        />
       </Head>
 
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-        strategy="lazyOnload"
-      />
+      {/* Logo Header */}
+      <header className="w-full bg-white flex flex-col items-center py-4 shadow-sm">
+        <Image
+          src="/images/logo.webp"
+          alt="Every State House Buyers logo"
+          width={180}
+          height={48}
+          priority
+        />
+        <a
+          href="tel:1-800-555-1234"
+          className="mt-2 text-base font-medium text-blue-700"
+          aria-label="Call Every State House Buyers"
+        >
+          (800) 555-1234
+        </a>
+      </header>
 
       {/* Mobile Hero Section */}
       <div className="relative min-h-screen md:hidden">
         <Image
-          src="/images/mobile-bg.webp"
+          src="/images/mobile-bg.avif"
           alt="Aerial neighborhood view"
           fill
-          className="object-cover object-center"
           sizes="100vw"
           priority
+          placeholder="blur"
+          blurDataURL="/images/mobile-bg-blur.webp"
+          fetchPriority="high"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-8 px-4 text-white text-center">
-          {/* Logo */}
-          <div className="mb-4">
-            <Image
-              src="/images/logo.webp"
-              alt="Every State House Buyers logo"
-              width={180}
-              height={48}
-              priority
-            />
-          </div>
-
-          {/* Call Button */}
-          <a
-            href="tel:1-800-555-1234"
-            className="text-sm font-medium text-white bg-blue-600 px-4 py-2 rounded-full mb-6"
-          >
-            📞 (800) 555-1234
-          </a>
-
-          {/* Headline & Subtext */}
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center">
           <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
@@ -72,13 +111,19 @@ export default function Home() {
             Enter your address to get your instant offer.
           </p>
 
-          {/* Address Form */}
-          <form className="w-full max-w-sm sticky top-4">
+          <form
+            className="w-full max-w-sm sticky top-4"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
             <input
               type="text"
               ref={inputRef}
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
               placeholder="Enter your home address"
               className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200"
+              aria-label="Enter your home address"
             />
             <button
               type="submit"
