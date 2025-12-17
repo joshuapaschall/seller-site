@@ -37,10 +37,11 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Submitted address:', inputValue);
+    // router.push('/address/verify') optional
   };
 
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <Head>
         <title>Get a Cash Offer | Every State House Buyers</title>
         <meta
@@ -74,6 +75,7 @@ export default function Home() {
         />
       </Head>
 
+      {/* Logo Header */}
       <header className="w-full bg-white flex flex-col items-center py-4 shadow-sm">
         <Image
           src="/images/logo.webp"
@@ -86,12 +88,14 @@ export default function Home() {
         <a
           href="tel:1-800-555-1234"
           className="mt-2 text-base font-medium text-blue-700"
+          aria-label="Call Every State House Buyers"
         >
           (800) 555-1234
         </a>
       </header>
 
-      <div className="relative min-h-screen md:hidden overflow-x-hidden">
+      {/* Mobile Hero Section */}
+      <div className="relative min-h-screen md:hidden">
         <Image
           src="/images/mobile-bg.avif"
           alt="Aerial neighborhood view"
@@ -118,30 +122,29 @@ export default function Home() {
             Enter your address to get your instant offer.
           </p>
 
-          <div className="w-full max-w-sm mx-auto px-4 relative z-20">
-            <form
-              className="w-full sticky top-4 min-h-[120px]"
-              autoComplete="off"
-              onSubmit={handleSubmit}
+          <form
+            className="w-full max-w-sm sticky top-4 min-h-[120px]"
+            autoComplete="off"
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              ref={inputRef}
+              value={inputValue}
+              onChange={e => setInputValue(e.target.value)}
+              placeholder="Enter your home address"
+              className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200"
+              aria-label="Enter your home address"
+            />
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white font-semibold py-3 rounded-b-md text-sm"
             >
-              <input
-                type="text"
-                ref={inputRef}
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                placeholder="Enter your home address"
-                className="w-full px-4 py-3 rounded-t-md text-black text-sm border border-gray-200 outline-none"
-                aria-label="Enter your home address"
-              />
-              <button
-                type="submit"
-                className="w-full bg-blue-600 text-white font-semibold py-3 rounded-b-md text-sm"
-              >
-                Get Offer
-              </button>
-            </form>
-          </div>
+              Get Offer
+            </button>
+          </form>
 
+          {/* Reviews Badge */}
           <div className="mt-6 flex flex-col items-center text-xs text-white/80">
             <Image
               src="/images/reviews-badge.webp"
