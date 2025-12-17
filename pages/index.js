@@ -37,7 +37,7 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Submitted address:', inputValue);
-    // router.push('/address/verify') optional
+    // You can use: router.push('/address/verify')
   };
 
   return (
@@ -48,18 +48,6 @@ export default function Home() {
           name="description"
           content="Sell your house with the click of a button. Get your free cash offer now from Every State House Buyers."
         />
-        {/* Optional: preload fonts */}
-        <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-        />
-
-        {/* Preload hero background image */}
         <link
           rel="preload"
           as="image"
@@ -68,7 +56,6 @@ export default function Home() {
           imagesizes="100vw"
           type="image/avif"
         />
-        {/* Preload logo */}
         <link
           rel="preload"
           as="image"
@@ -118,7 +105,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/30 z-0" />
 
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center min-h-[60vh]">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-start pt-24 px-4 text-white text-center">
           <h1 className="text-2xl font-bold mb-2 drop-shadow-sm">
             Get a cash offer for your home<br />with the click of a button
           </h1>
@@ -127,7 +114,7 @@ export default function Home() {
           </p>
 
           <form
-            className="w-full max-w-sm sticky top-4 min-h-[120px]"
+            className="w-full max-w-sm sticky top-4"
             autoComplete="off"
             onSubmit={handleSubmit}
           >
